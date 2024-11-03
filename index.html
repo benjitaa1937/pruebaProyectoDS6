@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-key="title">Welcome to My Store</title>
+  <!-- Tailwind CSS y estilos personalizados -->
+  <link href="style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+  
+  <!-- Selector de idioma -->
+  <div class="flex justify-end p-4">
+    <select id="languageSelector" class="border p-2 rounded">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+  </div>
+
+  <!-- Barra de Navegación -->
+  <nav class="bg-blue-800 p-4 text-white">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 data-key="title" class="text-2xl font-bold">Welcome to My Store</h1>
+      <div>
+        <a href="#" data-key="nav.home" class="text-gray-200 hover:text-white px-3">Home</a>
+        <a href="#" data-key="nav.products" class="text-gray-200 hover:text-white px-3">Products</a>
+        <a href="#" data-key="nav.contact" class="text-gray-200 hover:text-white px-3">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sección de Productos -->
+  <main class="container mx-auto my-8 p-4">
+    <h2 data-key="products_available" class="text-3xl font-bold mb-6 text-center">Available Products</h2>
+    <div id="productos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-blue-800 text-white p-4 mt-8">
+    <div data-key="footer_text" class="container mx-auto text-center">
+      All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Script de idioma -->
+  <script src="app.js"></script>
+</body>
+</html>

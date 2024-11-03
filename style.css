@@ -1,0 +1,175 @@
+/* Archivo: style.css */
+
+/* Colores */
+:root {
+  --primary-color: #6200ee;
+  --primary-light: #bb86fc;
+  --secondary-color: #03dac5;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+  --card-background: #ffffff;
+  --border-radius: 8px;
+}
+
+/* Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Contenedores */
+.container {
+  width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .container {
+      max-width: 960px;
+  }
+}
+
+@media (min-width: 960px) {
+  .container {
+      max-width: 1200px;
+  }
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.navbar .menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .menu a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.navbar .hamburger {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .navbar .menu a {
+      display: none;
+  }
+
+  .navbar .hamburger {
+      display: block;
+  }
+}
+
+/* Tarjetas de producto */
+.product-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.product-card {
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
+.product-card h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: var(--primary-color);
+}
+
+.product-card p {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.product-card .price {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+/* Grid adaptable */
+@media (max-width: 600px) {
+  .product-grid {
+      grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 960px) {
+  .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .product-grid {
+      grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tipografía adaptable */
+h1 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  h1 {
+      font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 960px) {
+  h1 {
+      font-size: 2.5rem;
+  }
+}
+
+/* Botón */
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius);
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--primary-light);
+}
