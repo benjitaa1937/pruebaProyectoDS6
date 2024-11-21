@@ -1,7 +1,6 @@
-// URL de la Fake Store API
+
 const API_URL = 'https://fakestoreapi.com/products';
 
-// Función para cargar productos de la API
 async function cargarProductos() {
   try {
     const response = await fetch(API_URL);
@@ -12,8 +11,7 @@ async function cargarProductos() {
   }
 }
 
-// Función para mostrar productos en el DOM
-// Función para mostrar productos en el DOM
+
 function mostrarProductos(productos) {
   const productosContainer = document.getElementById('productos');
   productosContainer.innerHTML = '';
@@ -26,7 +24,8 @@ function mostrarProductos(productos) {
     const imagenElement = document.createElement('img');
     imagenElement.src = producto.image; // Cargar la imagen del producto
     imagenElement.alt = producto.title;
-    imagenElement.classList.add('w-full', 'h-48', 'object-contain', 'mb-4'); // Clases de Tailwind para el tamaño
+    imagenElement.classList.add('product-image'); // Clase de CSS específica
+
 
     // Elementos para nombre y descripción
     const nombreElement = document.createElement('h3');
@@ -85,25 +84,155 @@ function aplicarTraducciones(traducciones) {
   });
 }
 
-// Guardar preferencia de idioma en Local Storage
 function guardarPreferenciaIdioma(idioma) {
   localStorage.setItem('idioma', idioma);
 }
 
-// Cargar preferencia de idioma desde Local Storage
 function cargarPreferenciaIdioma() {
-  return localStorage.getItem('idioma') || 'en'; // inglés por defecto
+  return localStorage.getItem('idioma') || 'en'; 
 }
 
-// Event Listener para el cambio de idioma
 document.getElementById('languageSelector').addEventListener('change', (e) => {
   const idioma = e.target.value;
   cargarTraducciones(idioma);
   guardarPreferenciaIdioma(idioma);
 });
 
-// Configuración inicial
+
 const idioma = cargarPreferenciaIdioma();
 document.getElementById('languageSelector').value = idioma;
 cargarTraducciones(idioma);
-cargarProductos(); // Cargar productos al iniciar
+cargarProductos(); 
+
+document.querySelector('.hamburger').addEventListener('click', () => {
+  document.querySelector('.menu').classList.toggle('show');
+});
+document.getElementById("hamburger").addEventListener("click", function() {
+  const menu = document.getElementById("menu");
+  menu.classList.toggle("show"); 
+});
+
+// Array para almacenar los productos agregados al carrito
+let carrito = [];
+
+// Función para mostrar los productos en el DOM
+function mostrarProductos(productos) {
+  const productosContainer = document.getElementById('productos');
+  productosContainer.innerHTML = '';
+
+  productos.forEach(producto => {
+    const productoElement = document.createElement('div');
+    productoElement.classList.add('border', 'p-4', 'rounded', 'bg-white', 'shadow');
+
+    // Imagen del producto
+    const imagenElement = document.createElement('img');
+    imagenElement.src = producto.image;
+    imagenElement.alt = producto.title;
+    imagenElement.classList.add('product-image');
+
+    // Título del producto
+    const nombreElement = document.createElement('h3');
+    nombreElement.setAttribute('data-product-name', producto.id);
+    nombreElement.classList.add('text-lg', 'font-bold', 'mb-2');
+    nombreElement.textContent = producto.title;
+
+    // Descripción del producto
+    const descripcionElement = document.createElement('p');
+    descripcionElement.setAttribute('data-product-description', producto.id);
+    descripcionElement.classList.add('text-gray-700', 'mb-4');
+    descripcionElement.textContent = producto.description;
+
+    // Precio del producto
+    const precioElement = document.createElement('p');
+    precioElement.classList.add('text-gray-900', 'font-bold');
+    precioElement.textContent = `$${producto.price}`;
+
+    // Botón para agregar al carrito
+    const botonAgregar = document.createElement('button');
+    botonAgregar.textContent = 'Agregar al carrito';
+    botonAgregar.classList.add('bg-blue-500', 'text-white', 'p-2', 'rounded', 'hover:bg-blue-700');
+    botonAgregar.addEventListener('click', () => agregarAlCarrito(producto));
+
+    // Agregar elementos al contenedor del producto
+    productoElement.appendChild(imagenElement);
+    productoElement.appendChild(nombreElement);
+    productoElement.appendChild(descripcionElement);
+    productoElement.appendChild(precioElement);
+    productoElement.appendChild(botonAgregar);
+    productosContainer.appendChild(productoElement);
+  });
+}
+
+// Función para agregar un producto al carrito
+function agregarAlCarrito(producto) {
+  carrito.push(producto); // Agregar el producto al carrito
+
+  // Mostrar SweetAlert
+  Swal.fire({
+    title: 'Producto agregado',
+    text: `¡"${producto.title}" ha sido agregado al carrito!`,
+    icon: 'success',
+    showConfirmButton: false,
+    timer: 1500
+  });
+
+  console.log('Carrito actualizado:', carrito); // Para verificar en la consola
+}
+
+// Resto del código permanece igual
+async function cargarProductos() {
+  try {
+    const response = await fetch(API_URL);
+    const productos = await response.json();
+    mostrarProductos(productos);
+  } catch (error) {
+    console.error('Error al cargar productos:', error);
+  }
+}
+
+cargarProductos();
+
+// Referencias a elementos
+const signupLink = document.getElementById("signupLink");
+const signupModal = document.getElementById("signupModal");
+const closeModal = document.getElementById("closeModal");
+const signupForm = document.getElementById("signupForm");
+
+// Mostrar el modal al hacer clic en Sign up
+signupLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  signupModal.style.display = "block";
+});
+
+// Cerrar el modal al hacer clic en el botón de cierre
+closeModal.addEventListener("click", () => {
+  signupModal.style.display = "none";
+});
+
+// Validación del formulario
+signupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+
+  if (!email || !/\S+@\S+\.\S+/.test(email)) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Por favor ingresa un correo válido.",
+    });
+  } else {
+    Swal.fire({
+      icon: "success",
+      title: "¡Éxito!",
+      text: "Formulario enviado correctamente.",
+    });
+    signupModal.style.display = "none";
+  }
+});
+
+// Cerrar el modal si se hace clic fuera de él
+window.addEventListener("click", (e) => {
+  if (e.target === signupModal) {
+    signupModal.style.display = "none";
+  }
+});
